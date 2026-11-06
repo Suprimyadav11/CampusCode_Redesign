@@ -1,48 +1,51 @@
 # CampusCode — Build. Compete. Ship.
 
-CampusCode is a responsive student-community and hackathon portal built with **React, TypeScript, React Router, and Vite**. It includes a public landing page, demo authentication screens, and a student dashboard with sample events and activity.
+CampusCode is a responsive student-community and hackathon portal built with **React**, **TypeScript**, **React Router**, and **Vite**. It includes a public landing page, demo authentication screens, and a student dashboard with sample events and activity.
 
 This repository is a front-end demonstration. It does not include a production backend, database, or real account authentication.
 
 ## Contents
 
-- Features
-- Technology Stack
-- Project Structure
-- Requirements
-- Run the Project Locally
-- Available Routes
-- How the Application Works
-- Build for Production
-- Important Notes
+- [Features](#features)
+- [Technology stack](#technology-stack)
+- [Project structure](#project-structure)
+- [Requirements](#requirements)
+- [Run the project locally](#run-the-project-locally)
+- [Available routes](#available-routes)
+- [How the application works](#how-the-application-works)
+- [Build for production](#build-for-production)
+- [Important notes](#important-notes)
 
-## 1. Features
+## Features
 
-### Public Landing Page
+### Public landing page
+
 - CampusCode branding and navigation.
 - Sections introducing the community, mission, process, hackathons, and ways to join.
 - Responsive layouts for desktop and mobile screens.
 - Scroll-based visual effects, marquee animation, and reduced-motion support.
 - Local font files, logo assets, and an experience video with a poster image.
 
-### Login and Registration
+### Login and registration
+
 - Separate login and registration routes.
 - Email and password validation.
 - Registration form validation, password confirmation, and password-strength feedback.
 - Password visibility controls and accessible form feedback.
 - Demo session handling on the client side.
 
-### Student Dashboard
+### Student dashboard
+
 - Protected dashboard route that checks for a client-side student session.
 - Student profile and dashboard statistics.
 - Hackathon/event exploration and event-detail dialogs.
 - Event registration state, recent activity, notifications, and help dialog.
 - Sample dashboard data and browser storage for selected state.
 
-## 2. Technology Stack
+## Technology stack
 
 | Technology | Purpose |
-|---|---|
+| --- | --- |
 | React 19 | Component-based user interface |
 | TypeScript | Typed application code |
 | React Router 7 | Client-side routing |
@@ -50,7 +53,7 @@ This repository is a front-end demonstration. It does not include a production b
 | CSS | Layout, responsive styling, themes, and animations |
 | Browser Storage | Demo session and dashboard-state persistence |
 
-## 3. Project Structure
+## Project structure
 
 ```text
 campuscode/
@@ -89,12 +92,12 @@ campuscode/
 └── README.md
 ```
 
-## 4. Requirements
+## Requirements
 
 Install the following before starting:
 
-- **Node.js:** A current LTS release is recommended.
-- **npm:** Included with Node.js.
+- **Node.js** (a current LTS release is recommended).
+- **npm**, which is included with Node.js.
 
 Check the installed versions:
 
@@ -103,52 +106,34 @@ node --version
 npm --version
 ```
 
-## 5. Run the Project Locally
+## Run the project locally
 
-Follow these steps to run CampusCode on your computer.
+1. Extract the ZIP archive.
+2. Open the extracted project folder in a terminal or VS Code.
+3. Install the dependencies:
 
-**Step 1: Extract the ZIP archive**
+   ```bash
+   npm install
+   ```
 
-Extract the downloaded project ZIP file into your preferred folder.
+4. Start the development server:
 
-**Step 2: Open the project**
+   ```bash
+   npm run dev
+   ```
 
-Open the extracted project folder in VS Code or your preferred code editor.
+5. Open the local URL printed by Vite. The Vite configuration uses port `3000`, so the usual address is:
 
-**Step 3: Install dependencies**
+   ```text
+   http://localhost:3000
+   ```
 
-Open the integrated terminal and execute:
+Keep the terminal running while using the development site. Stop the server with `Ctrl + C`.
 
-```bash
-npm install
-```
-
-**Step 4: Start the development server**
-
-```bash
-npm run dev
-```
-
-**Step 5: Open the application**
-
-The Vite configuration uses port `3000`, so the usual local address is:
-
-```text
-http://localhost:3000
-```
-
-Keep the terminal running while using the development site.
-
-To stop the server, press:
-
-```text
-Ctrl + C
-```
-
-## 6. Available Routes
+## Available routes
 
 | Route | Description |
-|---|---|
+| --- | --- |
 | `/` | Public CampusCode landing page |
 | `/login` | Demo login form |
 | `/register` | Demo registration form |
@@ -156,58 +141,25 @@ Ctrl + C
 
 Unknown routes redirect to the home page.
 
-## 7. How the Application Works
+## How the application works
 
-### Application Startup and Routing
+### Application startup and routing
 
-`src/main.tsx` mounts the React application and wraps it in `BrowserRouter`.
+`src/main.tsx` mounts the React application and wraps it in `BrowserRouter`. `src/App.tsx` declares the routes and connects each route to its page component. `ScrollManager` handles route-related scroll behavior.
 
-`src/App.tsx` declares the routes and connects each route to its page component.
+### Authentication demo
 
-`ScrollManager` handles route-related scroll behavior.
+`src/pages/AuthPage.tsx` renders the login or registration interface according to the selected route. Shared validation helpers are kept in `src/lib/auth-helpers.ts`. Successful demo authentication creates a client-side student session through `src/lib/student-session.ts`.
 
-### Authentication Demo
+### Student dashboard
 
-`src/pages/AuthPage.tsx` renders the login or registration interface according to the selected route.
+The dashboard is assembled from reusable components in `src/components/dashboard/`. The session and sample dashboard data are managed by `src/lib/student-session.ts`. Event, notification, and session state is stored in the browser where implemented, so the demo can retain selected state between page visits in the same browser.
 
-Shared validation helpers are maintained in:
+### Styling and media
 
-`src/lib/auth-helpers.ts`
+The styles are organized by purpose in `src/styles/`. Fonts, logos, the video, and its poster image are served from `public/`. Vite serves files in `public/` from the site root, so they are referenced by paths such as `/brand/campuscode-logo.svg` and `/videos/what-is-campuscode.mp4`.
 
-Successful demo authentication creates a client-side student session through:
-
-`src/lib/student-session.ts`
-
-### Student Dashboard
-
-The dashboard is assembled from reusable components in:
-
-`src/components/dashboard/`
-
-The session and sample dashboard data are managed by:
-
-`src/lib/student-session.ts`
-
-Event, notification, and session state is stored in the browser where implemented, allowing the demo to retain selected state between page visits in the same browser.
-
-### Styling and Media
-
-The styles are organized by purpose in:
-
-`src/styles/`
-
-Fonts, logos, the video, and its poster image are served from:
-
-`public/`
-
-Vite serves files in `public/` from the site root. For example:
-
-```text
-/brand/campuscode-logo.svg
-/videos/what-is-campuscode.mp4
-```
-
-## 8. Build for Production
+## Build for production
 
 Run the TypeScript check and create the optimized production build:
 
@@ -215,13 +167,7 @@ Run the TypeScript check and create the optimized production build:
 npm run build
 ```
 
-The generated production files are placed in:
-
-```text
-dist/
-```
-
-### Preview the Production Build
+The generated site is placed in the `dist/` directory.
 
 To preview the production build locally:
 
@@ -229,27 +175,20 @@ To preview the production build locally:
 npm run preview
 ```
 
-## 9. Useful npm Scripts
+## Useful npm scripts
 
 | Command | Purpose |
-|---|---|
+| --- | --- |
 | `npm run dev` | Start the local development server |
 | `npm run build` | Type-check and create the production build |
 | `npm run preview` | Preview the production build |
 | `npm run lint` | Run the TypeScript compiler check |
 
-## 10. Important Notes
+## Important notes
 
 - This is a **front-end demo**, not a production authentication system.
 - Login and registration do not communicate with a server or create real user accounts.
-- Dashboard content includes sample data.
-- Browser storage is used for demo persistence where implemented.
+- Dashboard content includes sample data. Browser storage is used for demo persistence where implemented.
 - Do not use real passwords or sensitive personal information in this demo.
 - No external API keys or backend environment variables are required to run the current front-end project.
 - Keep `package-lock.json` committed so npm installs the dependency versions recorded for this project.
-
----
-
-**CampusCode — Build. Compete. Ship.**
-
-A platform designed to bring students together, encourage collaboration, and create opportunities to participate in hackathons and build projects.
